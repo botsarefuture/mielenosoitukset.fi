@@ -1,0 +1,39 @@
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 0;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.5em;
+}
+
+.language-switch {
+    display: flex;
+    align-items: center;
+    color: #fff;
+}
+
+.language-switch label {
+    margin-right: 10px;
+}
+
+.user-actions a {
+    color: #fff;
+    text-decoration: none;
+    margin-right: 10px;
+}
+
+.user-actions .divider {
+    color: #fff;
+}

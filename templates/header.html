@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='header.css') }}"
+    />
+  </head>
+  <body>
+    <header class="bg-dark text-white">
+      <div class="container d-flex justify-content-between align-items-center">
+        <div class="logo">
+          <a class="text-white" href="{{ url_for('index') }}">Mielenosoitukset.fi</a>
+        </div>
+
+        <div class="language-switch">
+          <label class="text-white" for="language-select">Language:</label>
+          <select class="form-control" id="language-select">
+            <option value="en">English</option>
+            <option value="fi">Finnish</option>
+            <!-- Add more language options as needed -->
+          </select>
+        </div>
+
+        <!-- Add this block to dynamically change the header based on the login status -->
+        {% if 'user' in session %}
+        <div class="user-actions">
+          <a class="text-white" href="{{ url_for('logout') }}">Log Out</a>
+        </div>
+        {% else %}
+        <div class="user-actions">
+          <a class="text-white" href="{{ url_for('login') }}">Log In</a>
+          <span class="divider">|</span>
+          <a class="text-white" href="{{ url_for('signup') }}">Sign Up</a>
+        </div>
+        {% endif %}
+      </div>
+    </header>
+
+    <!-- Bootstrap JS and Popper.js are required for Bootstrap components -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UoI/Ago3o9qqLacGMrBqjJja8rMIqNUSuFqU+Yeq+adR/9SrZwoK8bNYYxKExi" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  </body>
+</html>

@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}Mielenosoitukset.fi - Upcoming Demonstrations{% endblock %}
+
+{% block content %}
+    <div class="container mt-5">
+        <h2>Tulevat mielenosoitukset</h2>
+        <div class="row protest-grid">
+            {% for protest in upcoming_protests %}
+                <div class="col-md-10 mb-10">
+                    <div class="protest-box">
+                        <a href="{{ url_for('demonstration_info', demonstration_id=protest._id) }}">
+                            <h3 class="text-align: center;">{{ protest.name }}</h3>
+                        </a>
+                        <p><strong>Aika:</strong> {{ protest.time }}</p>
+                        <p><strong>Sijainti:</strong> {{ protest.location }} ({{ protest.city }})</p>
+                        <p><strong>Järjestäjä:</strong> <a href="{{ url_for('show_organization', organization_id=protest.organization._id) }}">
+                            {{ protest.organization.name }}
+                        </a></p>
+                        
+                        <p><strong>Aihe:</strong>
+                            <a href="{{ url_for('demonstrations_by_topic', topic_id=protest.topic._id) }}">
+                                {{ protest.topic.name }}
+                            </a>
+                        </p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    {# Include any specific scripts for this page if needed #}
+{% endblock %}

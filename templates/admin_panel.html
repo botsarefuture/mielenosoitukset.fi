@@ -1,0 +1,17 @@
+<!-- templates/admin_panel.html -->
+{% extends 'base.html' %}
+
+{% block title %}Admin Panel{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1 class="mt-5">Admin Panel</h1>
+        <ul class="list-group mt-4">
+            <li class="list-group-item"><a href="{{ url_for('manage_protests') }}">Manage Protests</a></li>
+            <li class="list-group-item"><a href="{{ url_for('manage_organizations') }}">Manage Organizations</a></li>
+            <li class="list-group-item"><a href="{{ url_for('manage_topics') }}">Manage Topics</a></li>
+            <li class="list-group-item"><a href="{{ url_for('manage_users') }}">Manage Users</a></li>
+            <li class="list-group-item"><a href="{{ url_for('add_data') }}">Add Data</a></li>
+        </ul>
+    </div>
+{% endblock %}

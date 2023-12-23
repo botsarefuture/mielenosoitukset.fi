@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ organization.name }} - Organization Info{% endblock %}
+
+{% block content %}
+    <div class="container mt-5">
+        <h1>{{ organization.name }} - Organization Info</h1>
+
+        <h2 class="mt-4">Tulevat mielenosoitukset</h2>
+        {% for protest in demonstrations %}
+            <div class="protest-box mb-4">
+                <a href="{{ url_for('demonstration_info', demonstration_id=protest._id) }}">
+                    <h3>{{ protest.name }}</h3>
+                </a>
+                <p><strong>Aika:</strong> {{ protest.time }}</p>
+                <p><strong>Sijainti:</strong> {{ protest.location }} ({{ protest.city }})</p>           
+                <p><strong>Aihe:</strong>
+                    <a href="{{ url_for('demonstrations_by_topic', topic_id=protest.topic._id) }}">
+                        {{ protest.topic.name }}
+                    </a>
+                </p>
+            </div>
+        {% endfor %}
+        <br>
+
+        <br>
+        <a href="{{ url_for('show_organizations') }}" class="btn btn-secondary">Back to Organizations</a>
+    </div>
+{% endblock %}
+
+{% block additional_styles %}
+    {# You can include additional styles specific to this template if needed #}
+    <style>
+        /* Add your additional styles here */
+    </style>
+{% endblock %}

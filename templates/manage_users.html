@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+
+{% block title %}Mielenosoitukset.fi - Manage Users{% endblock %}
+
+{% block content %}
+    <div class="container mt-5">
+        <h1>Manage Users</h1>
+        
+        <form id="userForm" action="{{ url_for('manage_users') }}" method="post">
+            <div class="form-group">
+                <label for="action">Select Action:</label>
+                <select id="actionSelect" name="action" class="form-control" required>
+                    <option value="create">Create User</option>
+                    <option value="modify">Modify User</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" name="username" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" name="email" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" name="password" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label for="confirm_password">Confirm Password:</label>
+                <input type="password" name="confirm_password" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label for="admin">Admin:</label>
+                <input type="checkbox" name="admin" class="form-check-input ">
+            </div>
+
+            <div class="form-group">
+                <label for="organizations">Organizations (comma-separated):</label>
+                <input type="text" name="organizations" class="form-control" placeholder="Org1, Org2, ...">
+            </div>
+
+            <!-- New dropdown for selecting a user when modifying or deleting -->
+            <div class="form-group">
+                <label for="selected_user">Select User:</label>
+                <select name="selected_user" id="selectedUser" class="form-control" style="display: none;">
+                    {% for user in users %}
+                        <option value="{{ user._id }}">{{ user.username }} ({{ user.email }})</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+        
+        <hr>
+
+        <h2>Current Users:</h2>
+        <ul>
+            {% for user in users %}
+                <li>
+                    <strong>{{ user.username }}</strong> ({{ user.email }})
+                    {% if user.admin %}(Admin){% endif %}
+                    - Organizations: {{ user.organizations|join(', ') }}
+                </li>
+            {% endfor %}
+        </ul>
+
+        <script>
+            // JavaScript to handle the change event of the action dropdown
+            var actionSelect = document.getElementById('actionSelect');
+            var selectedUser = document.getElementById('selectedUser');
+
+            // Trigger the change event on page load
+            actionSelect.dispatchEvent(new Event('change'));
+
+            actionSelect.addEventListener('change', function () {
+                // If the selected action is 'modify' or 'delete', show the user dropdown
+                selectedUser.style.display = (this.value === 'modify' || this.value === 'delete') ? 'block' : 'none';
+            });
+        </script>
+    </div>
+
+{% endblock %}

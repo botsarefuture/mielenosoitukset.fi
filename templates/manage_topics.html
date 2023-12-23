@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Manage Topics
+{% endblock %}
+
+{% block content %}
+    <div class="container mt-5">
+        <h1>Manage Topics</h1>
+
+        <div class="row">
+            <div class="col-md-6">
+                <h2 class="mt-4">Create New Topic</h2>
+                <form action="{{ url_for('manage_topics') }}" method="post">
+                    <input type="hidden" name="action" value="create">
+                    <div class="form-group">
+                        <label for="new_topic_name">Topic Name:</label>
+                        <input type="text" name="new_topic_name" class="form-control" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Create Topic</button>
+                </form>
+            </div>
+
+            <div class="col-md-6">
+                <h2 class="mt-4">Modify Existing Topic</h2>
+                <form action="{{ url_for('manage_topics') }}" method="post">
+                    <input type="hidden" name="action" value="modify">
+                    <div class="form-group">
+                        <label for="topic_id">Select Topic:</label>
+                        <select name="topic_id" class="form-control" required>
+                            {% for topic in topics %}
+                                <option value="{{ topic._id }}">{{ topic.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="updated_topic_name">Updated Topic Name:</label>
+                        <input type="text" name="updated_topic_name" class="form-control" required>
+                    </div>
+                    <button type="submit" class="btn btn-warning">Modify Topic</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <h2 class="mt-4">Delete Existing Topic</h2>
+                <form action="{{ url_for('manage_topics') }}" method="post">
+                    <input type="hidden" name="action" value="delete">
+                    <div class="form-group">
+                        <label for="topic_id">Select Topic:</label>
+                        <select name="topic_id" class="form-control" required>
+                            {% for topic in topics %}
+                                <option value="{{ topic._id }}">{{ topic.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-danger">Delete Topic</button>
+                </form>
+            </div>
+
+            <div class="col-md-6">
+                <h2 class="mt-4">All Topics</h2>
+                <ul>
+                    {% for topic in topics %}
+                        <li>{{ topic.name }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-md-12">
+                <a href="{{ url_for('admin_panel') }}" class="btn btn-secondary">Back to Admin Panel</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

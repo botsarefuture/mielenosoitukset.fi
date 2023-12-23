@@ -1,0 +1,19 @@
+<!-- templates/topics.html -->
+{% extends 'base.html' %}
+
+{% block title %}
+    All Topics
+{% endblock %}
+
+{% block content %}
+    <h1>All Topics</h1>
+    <ul>
+        {% for topic in topics %}
+            <li>
+                <a href="{{ url_for('demonstrations_by_topic', topic_id=topic._id) }}">
+                    {{ topic.name }}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

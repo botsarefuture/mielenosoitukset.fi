@@ -1,0 +1,36 @@
+<!-- templates/protest_info.html -->
+{% extends 'base.html' %}
+
+{% block title %}
+    {{ demonstration.name }} - Protest Info
+{% endblock %}
+
+{% block content %}
+    <div class="text-red p-4" style="background-color: white;">
+        <h1 class="display-4">{{ demonstration.name }} - Mielenosoituksen tiedot</h1>
+        
+        <p class="lead"><strong>Aika:</strong> {{ demonstration.time }}</p>
+        
+        <p class="lead">
+            <strong>Paikka:</strong> {{ demonstration.location }} ({{ demonstration.city }})
+        </p>
+        
+        <p class="lead">
+            <strong>Järjestäjä:</strong>
+            <a href="{{ url_for('show_organization', organization_id=demonstration.organization._id) }}">
+                {{ demonstration.organization.name }}
+            </a>
+        </p>
+        
+        <p class="lead">
+            <strong>Aihe:</strong>
+            <a href="{{ url_for('demonstrations_by_topic', topic_id=demonstration.topic._id) }}">
+                {{ demonstration.topic.name }}
+            </a>
+        </p> 
+        
+        <hr class="my-3">
+        
+        <a class="btn btn-outline-light btn-lg" href="{{ url_for('index') }}" role="button">Takaisin tuleviin mielenosoituksiin</a>
+    </div>
+{% endblock %}

@@ -1,0 +1,39 @@
+<!-- templates/demonstrations_by_topic.html -->
+{% extends 'base.html' %}
+
+{% block title %}
+    Demonstrations for {{ topic.name }}
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1 class="mt-4">Demonstrations for {{ topic.name }}</h1>
+        
+        <!-- Demonstrations List and Text Information -->
+        <div class="row">
+            <!-- Demonstrations List Column -->
+            <div class="col-md-6">
+                <ul class="list-group">
+                    {% for demonstration in demonstrations %}
+                        <li class="list-group-item">
+                            <a href="{{ url_for('demonstration_info', demonstration_id=demonstration._id) }}">
+                                {{ demonstration.name }} - {{ demonstration.location }} ({{ demonstration.city }})
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            
+            <!-- Text Information Column -->
+            <div class="col-md-6">
+                <p>This is a sample text information. You can add any additional details or description here.</p>
+                <p>Feel free to customize this section to provide more context about the demonstrations.</p>
+            </div>
+        </div>
+        
+        <!-- Back to All Topics Button -->
+        <div class="mt-4">
+            <a href="{{ url_for('show_topics') }}" class="btn btn-secondary">Back to All Topics</a>
+        </div>
+    </div>
+{% endblock %}

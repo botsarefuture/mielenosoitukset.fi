@@ -1,0 +1,135 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Manage Protests
+{% endblock %}
+
+{% block content %}
+    <div class="container mt-5">
+        <h1>Manage Protests</h1>
+
+        <h2 class="mt-4">Create New Protest</h2>
+        <form action="{{ url_for('manage_protests') }}" method="post">
+            <input type="hidden" name="action" value="create">
+            <div class="form-group">
+                <label for="new_name">Demonstration Name:</label>
+                <input type="text" name="new_name" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label for="new_time">Time:</label>
+                <input type="datetime-local" name="new_time" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label for="new_location">Location:</label>
+                <input type="text" name="new_location" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label for="new_city">City:</label>
+                <input type="text" name="new_city" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label for="new_organization">Organization:</label>
+                <select name="new_organization" class="form-control" required>
+                    {% for organization in organizations %}
+                        <option value="{{ organization._id }}">{{ organization.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="new_topic">Topic:</label>
+                <select name="new_topic" class="form-control" required>
+                    {% for topic in topics %}
+                        <option value="{{ topic._id }}">{{ topic.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Create Protest</button>
+        </form>
+
+        <h2 class="mt-4">Modify Existing Protest</h2>
+<form action="{{ url_for('manage_protests') }}" method="post">
+    <input type="hidden" name="action" value="modify">
+
+    <div class="form-group">
+        <label for="protest_id">Select Protest:</label>
+        <select name="protest_id" class="form-control" required>
+            {% for protest in protests %}
+                <option value="{{ protest._id }}">{{ protest.name }} - {{ protest.location }} ({{ protest.topic.name }})</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="updated_name">Updated Demonstration Name:</label>
+        <input type="text" name="updated_name" class="form-control" required>
+    </div>
+
+    <div class="form-group">
+        <label for="updated_time">Updated Time:</label>
+        <input type="datetime-local" name="updated_time" class="form-control" required>
+    </div>
+
+    <div class="form-group">
+        <label for="updated_location">Updated Location:</label>
+        <input type="text" name="updated_location" class="form-control" required>
+    </div>
+
+    <div class="form-group">
+        <label for="updated_city">Updated City:</label>
+        <input type="text" name="updated_city" class="form-control" required>
+    </div>
+
+    <div class="form-group">
+        <label for="updated_organization">Updated Organization:</label>
+        <select name="updated_organization" class="form-control" required>
+            {% for organization in organizations %}
+                <option value="{{ organization._id }}">{{ organization.name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="updated_topic">Updated Topic:</label>
+        <select name="updated_topic" class="form-control" required>
+            {% for topic in topics %}
+                <option value="{{ topic._id }}">{{ topic.name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-warning">Modify Protest</button>
+</form>
+
+
+        <h2 class="mt-4">Delete Existing Protest</h2>
+        <form action="{{ url_for('manage_protests') }}" method="post">
+            <input type="hidden" name="action" value="delete">
+            <div class="form-group">
+                <label for="protest_id">Select Protest:</label>
+                <select name="protest_id" class="form-control" required>
+                    {% for protest in protests %}
+                        <option value="{{ protest._id }}">{{ protest.time }} - {{ protest.location }} ({{ protest.topic.name }})</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-danger">Delete Protest</button>
+        </form>
+
+        <h2 class="mt-4">All Protests</h2>
+        <ul>
+            {% for protest in protests %}
+                <li>{{ protest.time }} - {{ protest.location }} ({{ protest.organization.name }}, {{ protest.topic.name }})</li>
+            {% endfor %}
+        </ul>
+
+        <br>
+        <a href="{{ url_for('admin_panel') }}" class="btn btn-secondary">Back to Admin Panel</a>
+    </div>
+{% endblock %}

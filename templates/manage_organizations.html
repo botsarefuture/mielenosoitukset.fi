@@ -1,0 +1,77 @@
+<!-- templates/manage_organizations.html -->
+{% extends 'base.html' %}
+
+{% block title %}
+    Manage Organizations
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1 class="mt-4">Manage Organizations</h1>
+
+        <!-- Create New Organization -->
+        <div class="mt-4">
+            <h2>Create New Organization</h2>
+            <form action="{{ url_for('manage_organizations') }}" method="post" class="mb-4">
+                <input type="hidden" name="action" value="create">
+                <div class="form-group">
+                    <label for="new_organization_name">Organization Name:</label>
+                    <input type="text" name="new_organization_name" class="form-control" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Create Organization</button>
+            </form>
+        </div>
+
+        <!-- Modify Existing Organization -->
+        <div class="mt-4">
+            <h2>Modify Existing Organization</h2>
+            <form action="{{ url_for('manage_organizations') }}" method="post" class="mb-4">
+                <input type="hidden" name="action" value="modify">
+                <div class="form-group">
+                    <label for="organization_id">Select Organization:</label>
+                    <select name="organization_id" class="form-control" required>
+                        {% for organization in organizations %}
+                            <option value="{{ organization._id }}">{{ organization.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="updated_organization_name">Updated Organization Name:</label>
+                    <input type="text" name="updated_organization_name" class="form-control" required>
+                </div>
+                <button type="submit" class="btn btn-warning">Modify Organization</button>
+            </form>
+        </div>
+
+        <!-- Delete Existing Organization -->
+        <div class="mt-4">
+            <h2>Delete Existing Organization</h2>
+            <form action="{{ url_for('manage_organizations') }}" method="post" class="mb-4">
+                <input type="hidden" name="action" value="delete">
+                <div class="form-group">
+                    <label for="organization_id">Select Organization:</label>
+                    <select name="organization_id" class="form-control" required>
+                        {% for organization in organizations %}
+                            <option value="{{ organization._id }}">{{ organization.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-danger">Delete Organization</button>
+            </form>
+        </div>
+
+        <!-- All Organizations -->
+        <div class="mt-4">
+            <h2>All Organizations</h2>
+            <ul class="list-group">
+                {% for organization in organizations %}
+                    <li class="list-group-item">{{ organization.name }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="mt-4">
+            <a href="{{ url_for('admin_panel') }}" class="btn btn-secondary">Back to Admin Panel</a>
+        </div>
+    </div>
+{% endblock %}
