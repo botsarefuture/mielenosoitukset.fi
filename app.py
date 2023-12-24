@@ -118,7 +118,7 @@ def demonstrations_by_topic(topic_id):
 # Admin panel routes
 @app.route('/admin')
 def admin_panel():
-    return render_template('admin_panel.html')
+    return render_template('admin/admin_panel.html')
 
 # ... (Previous code)
 
@@ -162,7 +162,7 @@ def manage_protests():
 
         return redirect(url_for('manage_protests'))
 
-    return render_template('manage_protests.html', protests=all_protests, organizations=all_organizations, topics=all_topics)
+    return render_template('admin/manage_protests.html', protests=all_protests, organizations=all_organizations, topics=all_topics)
 
 
 # New route for managing organizations
@@ -185,7 +185,7 @@ def manage_organizations():
 
         return redirect(url_for('manage_organizations'))
 
-    return render_template('manage_organizations.html', organizations=all_organizations)
+    return render_template('admin/manage_organizations.html', organizations=all_organizations)
 
 # New route for managing topics
 @app.route('/admin/manage_topics', methods=['GET', 'POST'])
@@ -207,7 +207,7 @@ def manage_topics():
 
         return redirect(url_for('manage_topics'))
 
-    return render_template('manage_topics.html', topics=all_topics)
+    return render_template('admin/manage_topics.html', topics=all_topics)
 
 # Add a new protest, organization, or topic
 @app.route('/admin/add', methods=['GET', 'POST'])
@@ -235,7 +235,7 @@ def add_data():
 # New route for adding a protest
 @app.route('/admin/add_protest', methods=['GET', 'POST'])
 def add_protest():
-    return render_template('add_protests.html')
+    return render_template('admin/add_protests.html')
 
 # New route for managing users
 # New route for managing users
@@ -290,7 +290,7 @@ def manage_users():
         # Refresh the user list after modification
         all_users = list(users.find())
 
-    return render_template('manage_users.html', users=all_users)
+    return render_template('admin/manage_users.html', users=all_users)
 
 # DEMOS
 @app.route('/')
