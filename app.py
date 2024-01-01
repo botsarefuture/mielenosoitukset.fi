@@ -59,7 +59,7 @@ def signup():
         confirm_password = request.form['confirm_password']
 
         if password == confirm_password:
-            hashed_password = generate_password_hash(password, method='sha256')
+            hashed_password = generate_password_hash(password)
 
             new_user = {'username': username, 'password': hashed_password}
             users.insert_one(new_user)
@@ -253,7 +253,7 @@ def manage_users():
         organizations = [org.strip() for org in request.form.get('organizations', '').split(',')]
 
         if action == 'create' and password == confirm_password:
-            hashed_password = generate_password_hash(password, method='sha256')
+            hashed_password = generate_password_hash(password)
             new_user = {
                 'username': username,
                 'email': email,
@@ -276,7 +276,7 @@ def manage_users():
 
                     # If a new password is provided, update the password
                     if password:
-                        hashed_password = generate_password_hash(password, method='sha256')
+                        hashed_password = generate_password_hash(password)
                         selected_user['password'] = hashed_password
 
                     # Update the user document in the database
